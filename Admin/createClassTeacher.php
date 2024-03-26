@@ -1,6 +1,6 @@
 
 <?php 
-error_reporting(0);
+error_reporting(1);
 include '../Includes/dbcon.php';
 include '../Includes/session.php';
 
@@ -14,6 +14,7 @@ if(isset($_POST['save'])){
   $teacherPassword = mysqli_real_escape_string($conn, $_POST['teacherPassword']);
 
     $selectedClasses = $_POST['classSelection'];
+    error_log('Selected classes: ' . print_r($selectedClasses, true));
     
     // Insert teacher into 'teachers' table
     $insertTeacherQuery = "INSERT INTO teachers (teacher_name, teacher_email, teacher_number, teacher_password) VALUES ('$teacherName', '$teacherEmail', '$teacherNumber', '$teacherPassword')";
@@ -70,33 +71,43 @@ if (isset($_GET['teacher_id']) && isset($_GET['action']) && $_GET['action'] == "
 
       
       // Update the teacher's name
-      $updateTeacherQuery = mysqli_query($conn, "UPDATE teachers SET teacher_name='$teacher_name', teacher_email='$teacher_email', teacher_number='$teacher_number', teacher_password='$teacher_password' WHERE teacher_id='$Id'");
+      // Update the teacher's name
+// Update the teacher's name
+$updateTeacherQuery = mysqli_query($conn, "UPDATE teachers SET teacher_name='$teacher_name', teacher_email='$teacher_email', teacher_number='$teacher_number', teacher_password='$teacher_password' WHERE teacher_id='$Id'");
 
-      if ($updateTeacherQuery) {
-          // Update the teacher's classes in teacher_classes table
+if ($updateTeacherQuery) {
+    // Update the teacher's classes in teacher_classes table
 
-          // Delete existing class associations
-          $deleteClassesQuery = mysqli_query($conn, "DELETE FROM teacher_classes WHERE teacher_id='$Id'");
+    // Delete existing class associations
+    $deleteClassesQuery = mysqli_query($conn, "DELETE FROM teacher_classes WHERE teacher_id='$Id'");
 
-          if ($deleteClassesQuery) {
-              // Insert new class associations
-              foreach ($newClasses as $class_id) {
-                  $insertClassQuery = mysqli_query($conn, "INSERT INTO teacher_classes (teacher_id, class_id) VALUES ('$Id', '$class_id')");
-                  if (!$insertClassQuery) {
-                      $statusMsg = "<div class='alert alert-danger' style='margin-right:700px;'>Error updating classes!</div>";
-                      break; // Exit loop if insertion fails
-                  }
-              }
+    if ($deleteClassesQuery) {
+        // Insert new class associations
+        echo "<script>";
+        echo "console.log('New classes:', " . json_encode($newClasses) . ");"; // Debugging output
 
-              if ($insertClassQuery) {
-                  echo "<script type='text/javascript'>window.location = 'createClassTeacher.php';</script>";
-              }
-          } else {
-              $statusMsg = "<div class='alert alert-danger' style='margin-right:700px;'>Error deleting existing classes!</div>";
-          }
-      } else {
-          $statusMsg = "<div class='alert alert-danger' style='margin-right:700px;'>An error occurred while updating teacher name!</div>";
-      }
+        foreach ($newClasses as $class_id) {
+            echo "console.log('Inserting class ID:', '$class_id');"; // Debugging output
+
+            $insertClassQuery = mysqli_query($conn, "INSERT INTO teacher_classes (teacher_id, class_id) VALUES ('$Id', '$class_id')");
+            if (!$insertClassQuery) {
+                $statusMsg = "<div class='alert alert-danger' style='margin-right:700px;'>Error updating classes!</div>";
+                break; // Exit loop if insertion fails
+            }
+        }
+
+        if ($insertClassQuery) {
+            echo "window.location = 'createClassTeacher.php';";
+        }
+        echo "</script>";
+    } else {
+        $statusMsg = "<div class='alert alert-danger' style='margin-right:700px;'>Error deleting existing classes!</div>";
+    }
+} else {
+    $statusMsg = "<div class='alert alert-danger' style='margin-right:700px;'>An error occurred while updating teacher name!</div>";
+}
+
+
   }
 }
 
@@ -294,28 +305,25 @@ if (isset($_GET['teacher_id']) && isset($_GET['action']) && $_GET['action'] == "
     $queryClasses = "SELECT class_id, class_name FROM classes";
     $resultClasses = mysqli_query($conn, $queryClasses);
 
-    // Fetch selected classes for the current teacher
-    $teacherId = $_GET['teacher_id']; // Replace with your way of getting teacher ID
+    // Fetch the classes assigned to the teacher
+    $teacherId = $row['teacher_id']; // Assuming you have a teacher_id in $row
+    $queryAssignedClasses = "SELECT class_id FROM teacher_classes WHERE teacher_id = $teacherId";
+    $resultAssignedClasses = mysqli_query($conn, $queryAssignedClasses);
 
-    $querySelected = "SELECT class_id FROM teacher_classes WHERE teacher_id = $teacherId";
-    $resultSelected = mysqli_query($conn, $querySelected);
-
-    $selectedClasses = array();
-
-    if ($resultSelected && mysqli_num_rows($resultSelected) > 0) {
-        while ($rowSelected = mysqli_fetch_assoc($resultSelected)) {
-            // Store the selected class IDs in an array
-            $selectedClasses[] = $rowSelected['class_id'];
+    // Store assigned class ids in an array
+    $assignedClassIds = array();
+    if ($resultAssignedClasses && mysqli_num_rows($resultAssignedClasses) > 0) {
+        while ($assignedRow = mysqli_fetch_assoc($resultAssignedClasses)) {
+            $assignedClassIds[] = $assignedRow['class_id'];
         }
     }
 
     if ($resultClasses && mysqli_num_rows($resultClasses) > 0) {
-        while ($row = mysqli_fetch_assoc($resultClasses)) {
-            // Check if the class is selected for the teacher
-            $selected = in_array($row['class_id'], $selectedClasses) ? 'selected' : '';
-            
-            // Output options with the selected attribute if necessary
-            echo "<option value='" . $row['class_id'] . "' $selected>" . $row['class_name'] . "</option>";
+        while ($classRow = mysqli_fetch_assoc($resultClasses)) {
+            // Check if the current class is assigned to the teacher
+            $isSelected = in_array($classRow['class_id'], $assignedClassIds) ? 'selected' : '';
+
+            echo "<option value='" . $classRow['class_id'] . "' $isSelected>" . $classRow['class_name'] . "</option>";
         }
     } else {
         echo "<option value=''>No classes available</option>";
@@ -325,6 +333,7 @@ if (isset($_GET['teacher_id']) && isset($_GET['action']) && $_GET['action'] == "
     mysqli_close($conn);
     ?>
 </select>
+
 
 <br><br>
 

@@ -1,4 +1,3 @@
-
 <?php 
 error_reporting(0);
 include '../Includes/dbcon.php';
@@ -64,12 +63,6 @@ if ($result_attendance) {
 }
 }
 
-
-
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -82,8 +75,14 @@ if ($result_attendance) {
    <!-- Select2 JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
- 
+  <!-- jQuery UI Datepicker CSS -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- jQuery UI Datepicker -->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -96,36 +95,18 @@ if ($result_attendance) {
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="css/ruang-admin.min.css" rel="stylesheet">
 
-
-
-   <script>
-    function classArmDropdown(str) {
-    if (str == "") {
-        document.getElementById("txtHint").innerHTML = "";
-        return;
-    } else { 
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("txtHint").innerHTML = this.responseText;
-            }
-        };
-        xmlhttp.open("GET","ajaxClassArms2.php?cid="+str,true);
-        xmlhttp.send();
-    }
-}
-</script>
-
-
-
-
-
+  <script>
+    $(document).ready(function() {
+      // Initialize Datepicker
+      $('#attendanceDate').datepicker({
+        dateFormat: 'yy-mm-dd', // Set the date format to match your PHP date format
+        // onSelect: function(dateText) {
+        //   // Automatically submit the form when a date is selected
+        //   $('form').submit();
+        // }
+      });
+    });
+  </script>
 </head>
 
 <body id="page-top">
@@ -145,7 +126,7 @@ if ($result_attendance) {
             <h1 class="h3 mb-0 text-gray-800">Take Attendance (Today's Date : <?php echo $todaysDate = date("m-d-Y");?>)</h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="./">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">All Student in Class</li>
+              <li class="breadcrumb-item active" aria-current="page">All Students in Class</li>
             </ol>
           </div>
 
@@ -159,10 +140,13 @@ if ($result_attendance) {
     <div class="row">
         <div class="col-lg-12">
             <div class="card mb-4">
+               <!-- Calendar Date Picker -->
+    <label for="attendanceDate" style="margin-left: 20px;margin-top: 15px">Select Date for Attendance:</label>
+    <input type="text" id="attendanceDate" name="attendanceDate" class="form-control" style="width: 200px; margin-left: 20px;" readonly>
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Filter Students by Class</h6>
                     <div>
-                      <label for="classFilter">Select Class:</label>
+                      <label for="classFilter" >Select Class:</label>
                       <select id="classFilter" name="classFilter" class="form-control">
                       <option value="">All Classes</option>
     <?php
@@ -202,7 +186,7 @@ if ($result_attendance) {
                                 <th>#</th>
                                 <th>Student ID</th>
                                 <th>Student Name</th>
-                                <th>Class ID</th>
+                                <th>Class Name</th>
                                 <th>Check</th>
                             </tr>
                         </thead>
@@ -239,7 +223,8 @@ if ($result_attendance) {
                               while ($rows = $rs->fetch_assoc()) {
                                 $sn = $sn + 1;
                                 $studentId = $rows['student_id'];
-                                $classId = $rows['class_id'];
+                                // changed from classId to class_name, but just kept it called $classId
+                                $classId = $rows['class_name'];
                                 $studentName = $rows['student_name'];
                             
                                 echo "
@@ -269,20 +254,10 @@ if ($result_attendance) {
         </div>
     </div>
 
-
-
-
-    
-
-
-
-
-
-
+   
 
 </form>
-
-
+<!-- End of Form -->
 
 
           <!--Row-->
@@ -315,7 +290,6 @@ if ($result_attendance) {
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="js/ruang-admin.min.js"></script>
@@ -333,8 +307,6 @@ if ($result_attendance) {
       $('#dataTableHover').DataTable(); // ID From dataTable with Hover
     });
   </script>
-
-
 
 <script>
 $(document).ready(function() {
@@ -362,9 +334,6 @@ if (successMessage && successMessage.trim() !== '') {
     alert(successMessage);
 }
 </script>
-
-
-
 
 </body>
 

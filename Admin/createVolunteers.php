@@ -290,28 +290,25 @@ if (isset($_GET['volunteer_id']) && isset($_GET['action']) && $_GET['action'] ==
     $queryClasses = "SELECT class_id, class_name FROM classes";
     $resultClasses = mysqli_query($conn, $queryClasses);
 
-    // Fetch selected classes for the current volunteer
-    $volunteerId = $_GET['volunteer_id']; // Replace with your way of getting volunteer ID
+    // Fetch the classes assigned to the volunteer
+    $volunteerId = $row['volunteer_id']; // Assuming you have a volunteer_id in $row
+    $queryAssignedClasses = "SELECT class_id FROM volunteer_classes WHERE volunteer_id = $volunteerId";
+    $resultAssignedClasses = mysqli_query($conn, $queryAssignedClasses);
 
-    $querySelected = "SELECT class_id FROM volunteer_classes WHERE volunteer_id = $volunteerId";
-    $resultSelected = mysqli_query($conn, $querySelected);
-
-    $selectedClasses = array();
-
-    if ($resultSelected && mysqli_num_rows($resultSelected) > 0) {
-        while ($rowSelected = mysqli_fetch_assoc($resultSelected)) {
-            // Store the selected class IDs in an array
-            $selectedClasses[] = $rowSelected['class_id'];
+    // Store assigned class ids in an array
+    $assignedClassIds = array();
+    if ($resultAssignedClasses && mysqli_num_rows($resultAssignedClasses) > 0) {
+        while ($assignedRow = mysqli_fetch_assoc($resultAssignedClasses)) {
+            $assignedClassIds[] = $assignedRow['class_id'];
         }
     }
 
     if ($resultClasses && mysqli_num_rows($resultClasses) > 0) {
-        while ($row = mysqli_fetch_assoc($resultClasses)) {
-            // Check if the class is selected for the volunteer
-            $selected = in_array($row['class_id'], $selectedClasses) ? 'selected' : '';
-            
-            // Output options with the selected attribute if necessary
-            echo "<option value='" . $row['class_id'] . "' $selected>" . $row['class_name'] . "</option>";
+        while ($classRow = mysqli_fetch_assoc($resultClasses)) {
+            // Check if the current class is assigned to the volunteer
+            $isSelected = in_array($classRow['class_id'], $assignedClassIds) ? 'selected' : '';
+
+            echo "<option value='" . $classRow['class_id'] . "' $isSelected>" . $classRow['class_name'] . "</option>";
         }
     } else {
         echo "<option value=''>No classes available</option>";
@@ -321,6 +318,7 @@ if (isset($_GET['volunteer_id']) && isset($_GET['action']) && $_GET['action'] ==
     mysqli_close($conn);
     ?>
 </select>
+
 
 <br><br>
 

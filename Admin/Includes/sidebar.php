@@ -116,6 +116,29 @@
      </li>
 
 
+     <hr class="sidebar-divider">
+      <div class="sidebar-heading">
+      Attendance
+      </div>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrapcon3"
+          aria-expanded="true" aria-controls="collapseBootstrapcon3">
+          <i class="fa fa-calendar-alt"></i>
+          <span>View Attendance</span>
+        </a>
+        <div id="collapseBootstrapcon3" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">View Attendance</h6>
+            <a class="collapse-item" href="viewStudentAttendance.php" style="font-size: 13px;">View Student Attendance</a>
+            <a class="collapse-item" href="viewVolunteerAttendance.php" style="font-size: 13px;">View Volunteer Attendance</a>
+            <!-- <a class="collapse-item" href="downloadRecord.php">Today's Report (xls)</a> -->
+            <!-- <a class="collapse-item" href="addMemberToContLevel.php ">Add Member to Level</a> -->
+          </div>
+        </div>
+      </li>
+
+
 
 
      <!-- <hr class="sidebar-divider">

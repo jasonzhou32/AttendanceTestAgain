@@ -73,36 +73,42 @@ include '../Includes/session.php';
                         <thead class="thead-light">
                           <tr>
                             <th>#</th>
-                            <th>Student ID</th>
-                            <th>Class ID</th>
+                            <th>Student Name</th>
+                            <th>Class Name</th>
                             <th>Status</th>
                             <th>Date</th>
                           </tr>
                         </thead>
                         <tbody>
                           <?php
-                          if(isset($_POST['view'])){
+                          if(isset($_POST['view'])) {
                             $dateTaken = $_POST['dateTaken'];
-                            $query = "SELECT * FROM tblattendance WHERE dateTimeTaken = '$dateTaken'";
+                            $query = "SELECT a.*, s.student_name, c.class_name 
+                                      FROM tblattendance a 
+                                      INNER JOIN students s ON a.student_id = s.student_id 
+                                      INNER JOIN classes c ON a.class_id = c.class_id 
+                                      WHERE a.dateTimeTaken = '$dateTaken'";
                             $rs = $conn->query($query);
                             $sn = 0;
                             if($rs->num_rows > 0) {
-                              while ($rows = $rs->fetch_assoc()) {
-                                $sn++;
-                                $status = ($rows['status'] == '1') ? "Present" : "Absent";
-                                echo "
-                                  <tr>
-                                    <td>".$sn."</td>
-                                    <td>".$rows['student_id']."</td>
-                                    <td>".$rows['class_id']."</td>
-                                    <td>".$status."</td>
-                                    <td>".$rows['dateTimeTaken']."</td>
-                                  </tr>";
-                              }
+                                while ($rows = $rs->fetch_assoc()) {
+                                    $sn++;
+                                    $status = ($rows['status'] == '1') ? "Present" : "Absent";
+                                    echo "
+                                        <tr>
+                                            <td>".$sn."</td>
+                                            <td>".$rows['student_name']."</td>
+                                            <td>".$rows['class_name']."</td>
+                                            <td>".$status."</td>
+                                            <td>".$rows['dateTimeTaken']."</td>
+                                        </tr>";
+                                }
                             } else {
-                              echo "<tr><td colspan='5'>No Records Found!</td></tr>";
+                                echo "<tr><td colspan='5'>No Records Found!</td></tr>";
                             }
-                          }
+                        }
+                        
+                        
                           ?>
                         </tbody>
                       </table>

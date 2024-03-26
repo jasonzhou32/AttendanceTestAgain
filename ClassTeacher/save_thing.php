@@ -5,7 +5,8 @@ include '../Includes/dbcon.php';
 include '../Includes/session.php';
 
 if (isset($_POST['save'])) {
-    $dateTaken = date("Y-m-d");
+    // Fetch the selected date from the form
+    $dateTaken = isset($_POST['attendanceDate']) ? $_POST['attendanceDate'] : date("Y-m-d");
     $teacher_id = $_SESSION['userId'];
 
     foreach ($_POST['check'] as $class_id => $checked_volunteers) {

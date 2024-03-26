@@ -5,7 +5,8 @@ include '../Includes/dbcon.php';
 include '../Includes/session.php';
 
 if (isset($_POST['save'])) {
-    $dateTaken = date("Y-m-d");
+    // Fetch the selected date from the form
+    $dateTaken = isset($_POST['attendanceDate']) ? $_POST['attendanceDate'] : date("Y-m-d");
     $teacher_id = $_SESSION['userId'];
 
     foreach ($_POST['check'] as $class_id => $checked_students) {
@@ -17,7 +18,7 @@ if (isset($_POST['save'])) {
         foreach ($checked_students as $student_id) {
             $student_id = intval($student_id);
             if (!empty($student_id)) {
-                // Insert status for selected students in this class for today's date
+                // Insert status for selected students in this class for the selected date
                 $insert_query = "INSERT INTO tblattendance (student_id, class_id, status, dateTimeTaken)
                                  VALUES ($student_id, $class_id, 1, '$dateTaken')
                                  ON DUPLICATE KEY UPDATE status = 1";
@@ -25,7 +26,7 @@ if (isset($_POST['save'])) {
             }
         }
 
-        // Set status to 0 for unselected students in this class for today's date
+        // Set status to 0 for unselected students in this class for the selected date
         $unselected_students_query = "INSERT INTO tblattendance (student_id, class_id, status, dateTimeTaken)
                                       SELECT sc.student_id, $class_id, 0, '$dateTaken'
                                       FROM student_classes sc
