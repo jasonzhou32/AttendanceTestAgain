@@ -209,6 +209,15 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="js/ruang-admin.min.js"></script>
+
+    <footer class="sticky-footer bg-white">
+      <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+          <span> &copy; <script> document.write(new Date().getFullYear()); </script> Xilin Northwest Chinese School. All Rights Reserved. | Developed by Jason Zhou.
+          </span>
+        </div>
+      </div>
+    </footer>
 </body>
 
 </html>
