@@ -75,7 +75,7 @@
                                 <form class="user" method="Post" action="">
                                     <div class="form-group">
                                         <select required name="userType" class="form-control mb-3">
-                                            <option value="">--Select User Roles--</option>
+                                            <option value="">--Select User Rolesa--</option>
                                             <option value="Administrator">Administrator</option>
                                             <option value="ClassTeacher">Class Teacher</option>
                                         </select>
