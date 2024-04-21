@@ -75,7 +75,7 @@
                                 <form class="user" method="Post" action="">
                                     <div class="form-group">
                                         <select required name="userType" class="form-control mb-3">
-                                            <option value="">--Select User Rolesa--</option>
+                                            <option value="">--Select User Roles--</option>
                                             <option value="Administrator">Administrator</option>
                                             <option value="ClassTeacher">Class Teacher</option>
                                         </select>
@@ -95,6 +95,15 @@
                                         <input type="submit" class="btn btn-success btn-block btn-login" value="Login" name="login" />
                                     </div>
                                 </form>
+
+                                <footer class="sticky-footer bg-white">
+      <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+          <span> &copy; <script> document.write(new Date().getFullYear()); </script> Xilin Northwest Chinese School. All Rights Reserved. | Developed by Jason Zhou.
+          </span>
+        </div>
+      </div>
+    </footer>
 
                                 <?php
 
@@ -209,15 +218,6 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="js/ruang-admin.min.js"></script>
-
-    <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-          <span> &copy; <script> document.write(new Date().getFullYear()); </script> Xilin Northwest Chinese School. All Rights Reserved. | Developed by Jason Zhou.
-          </span>
-        </div>
-      </div>
-    </footer>
 </body>
 
 </html>
