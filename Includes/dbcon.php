@@ -17,6 +17,6 @@
 	// 	echo "Seems like you have not configured the database. Failed To Connect to database:" . $conn->connect_error;
 	// }
 
-	$con = mysqli_init();
+	$conn = mysqli_init();
 	mysqli_real_connect($conn, "mynewtestserver.mysql.database.azure.com", "xilinnewtester", "MyTesterPass123", "your_database_name", 3306);
 ?>
