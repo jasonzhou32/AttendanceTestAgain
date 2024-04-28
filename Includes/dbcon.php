@@ -6,11 +6,11 @@
 	// $db = "attendancemsystem";
 
 	// Retrieve database connection details from environment variables
-	$host = getenv("DB_HOST");
-	$user = getenv("DB_USER");
-	$pass = getenv("DB_PASS");
-	$db = getenv("DB_NAME");
-	$port = getenv("DB_PORT");
+	$host = mynewtestserver.mysql.database.azure.com;
+	$user = xilinnewtester;
+	$pass = MyTesterPass123;
+	$db = your_database_name;
+	$port = 3306;
 	
 	$conn = new mysqli($host, $user, $pass, $db, $port);
 	if($conn->connect_error){
