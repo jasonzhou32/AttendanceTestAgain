@@ -1,7 +1,8 @@
 
 <?php 
+session_start();
 include '../Includes/dbcon.php';
-include '../Includes/session.php';
+// include '../Includes/session.php';
 
 
     $query = "SELECT classes.class_name 
