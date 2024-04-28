@@ -1,4 +1,5 @@
 <?php 
+ob_start();
 include 'Includes/dbcon.php';
 // session_start();
 ?>
