@@ -18,5 +18,5 @@
 	// }
 
 	$conn = mysqli_init();
-	mysqli_real_connect($conn, $host, $user, $pass, $dbname, $port);
+	mysqli_real_connect($conn, $host, $user, $pass, $dbname, 3306);
 ?>
