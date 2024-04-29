@@ -6,11 +6,11 @@
 	// $db = "attendancemsystem";
 
 	// Retrieve database connection details from environment variables
-	// $host = mynewtestserver.mysql.database.azure.com;
-	// $user = xilinnewtester;
-	// $pass = MyTesterPass123;
-	// $db = your_database_name;
-	// $port = 3306;
+	$host = getenv("DB_HOST");
+	$user = getenv("DB_USER");
+	$pass = getenv("DB_PASS");
+	$dbname = getenv("DB_NAME");
+	$port = getenv("DB_PORT")
 	
 	// $conn = new mysqli($host, $user, $pass, $db, $port);
 	// if($conn->connect_error){
@@ -18,5 +18,5 @@
 	// }
 
 	$conn = mysqli_init();
-	mysqli_real_connect($conn, "mynewtestserver.mysql.database.azure.com", "xilinnewtester", "MyTesterPass123", "your_database_name", 3306);
+	mysqli_real_connect($conn, $host, $user, $pass, $dbname, $port);
 ?>
