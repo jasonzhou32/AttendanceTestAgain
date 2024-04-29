@@ -57,6 +57,17 @@ include 'Includes/dbcon.php';
         .alert {
             border-radius: 10px;
         }
+
+        /* Updated footer styling */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
     </style>
 </head>
 
@@ -99,103 +110,49 @@ include 'Includes/dbcon.php';
                                 </form>
 
                                 <?php
-
-
- if(isset($_POST['login'])){
-
-
+if(isset($_POST['login'])){
    $userType = $_POST['userType'];
    $username = $_POST['username'];
    $password = $_POST['password'];
    // $password = md5($password);
-
-
    if($userType == "Administrator"){
-
-
      $query = "SELECT * FROM tbladmin WHERE emailAddress = '$username' AND password = '$password'";
      $rs = $conn->query($query);
      $num = $rs->num_rows;
      $rows = $rs->fetch_assoc();
-
-
      if($num > 0){
-
-
        $_SESSION['userId'] = $rows['Id'];
        $_SESSION['firstName'] = $rows['firstName'];
        $_SESSION['lastName'] = $rows['lastName'];
        $_SESSION['emailAddress'] = $rows['emailAddress'];
-
-
-       echo "<script type = \"text/javascript\">
-       window.location = (\"Admin/index.php\")
-       </script>";
+       echo "<script type = \"text/javascript\">window.location = (\"Admin/index.php\")</script>";
      }
-
-
      else{
-
-
-       echo "<div class='alert alert-danger' role='alert'>
-       Invalid Username/Password!
-       </div>";
-
-
+       echo "<div class='alert alert-danger' role='alert'>Invalid Username/Password!</div>";
      }
    }
    else if($userType == "ClassTeacher"){
-
-
      $query = "SELECT * FROM teachers WHERE teacher_email = '$username' AND teacher_password = '$password'";
      $rs = $conn->query($query);
      $num = $rs->num_rows;
      $rows = $rs->fetch_assoc();
-
-
      if($num > 0){
-
-
        $_SESSION['userId'] = $rows['teacher_id'];
        $_SESSION['firstName'] = $rows['teacher_name'];
-      
        $_SESSION['emailAddress'] = $rows['teacher_email'];
        $_SESSION['teacher_number'] = $rows['teacher_number'];
-
-
        $_SESSION['classId'] = $rows['classId'];
-      
-
-
-       echo "<script type = \"text/javascript\">
-       window.location = (\"ClassTeacher/index.php\")
-       </script>";
+       echo "<script type = \"text/javascript\">window.location = (\"ClassTeacher/index.php\")</script>";
      }
-
-
      else{
-
-
-       echo "<div class='alert alert-danger' role='alert'>
-       Invalid Username/Password!
-       </div>";
-
-
+       echo "<div class='alert alert-danger' role='alert'>Invalid Username/Password!</div>";
      }
    }
    else{
-
-
-       echo "<div class='alert alert-danger' role='alert'>
-       Invalid Username/Password!
-       </div>";
-
-
+       echo "<div class='alert alert-danger' role='alert'>Invalid Username/Password!</div>";
    }
 }
 ?>
-
-
                                 <div class="text-center">
                                     <!-- Add social login buttons if required -->
                                 </div>
@@ -207,19 +164,19 @@ include 'Includes/dbcon.php';
         </div>
     </div>
 
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span> &copy; <script> document.write(new Date().getFullYear()); </script> Xilin Northwest Chinese School. All Rights Reserved. | Developed by Jason Zhou.
+                </span>
+            </div>
+        </div>
+    </footer>
+
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="js/ruang-admin.min.js"></script>
-
-    <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-          <span> &copy; <script> document.write(new Date().getFullYear()); </script> Xilin Northwest Chinese School. All Rights Reserved. | Developed by Jason Zhou.
-          </span>
-        </div>
-      </div>
-    </footer>
 </body>
 
 </html>
