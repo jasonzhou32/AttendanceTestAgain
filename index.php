@@ -32,8 +32,7 @@ include 'Includes/dbcon.php';
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin-bottom: 21.5%;
+            height: calc(100vh - 21.5%);
         }
 
         .card {
