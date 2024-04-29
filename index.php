@@ -1,8 +1,8 @@
 <?php 
 ob_start();
-include 'Includes/session.php';
+session_start();
+// include 'Includes/session.php';
 include 'Includes/dbcon.php';
-// session_start();
 ?>
 
 
