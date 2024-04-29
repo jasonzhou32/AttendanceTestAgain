@@ -1,5 +1,5 @@
 <?php 
-error_reporting(0);
+error_reporting(1);
 include '../Includes/dbcon.php';
 include '../Includes/session.php';
 
@@ -300,37 +300,58 @@ if (isset($_GET['teacher_id']) && isset($_GET['action']) && $_GET['action'] == "
     // Connect to your database
     include '../Includes/dbcon.php';
 
-    // Fetch available classes from the 'classes' table
-    $queryClasses = "SELECT class_id, class_name FROM classes";
-    $resultClasses = mysqli_query($conn, $queryClasses);
+    // Fetch the teacher's data, assuming you have the teacher_id available
+    // Example: $teacherId = $_SESSION['teacher_id'];
 
-    // Fetch the classes assigned to the teacher
-    $teacherId = $row['teacher_id']; // Assuming you have a teacher_id in $row
-    $queryAssignedClasses = "SELECT class_id FROM teacher_classes WHERE teacher_id = $teacherId";
-    $resultAssignedClasses = mysqli_query($conn, $queryAssignedClasses);
+    // Sanitize the teacher id to prevent SQL injection
+    $teacherId = mysqli_real_escape_string($conn, $teacherId);
 
-    // Store assigned class ids in an array
-    $assignedClassIds = array();
-    if ($resultAssignedClasses && mysqli_num_rows($resultAssignedClasses) > 0) {
-        while ($assignedRow = mysqli_fetch_assoc($resultAssignedClasses)) {
-            $assignedClassIds[] = $assignedRow['class_id'];
+    // Fetch the teacher's data from the database
+    $queryTeacher = "SELECT * FROM teachers WHERE teacher_id = $teacherId";
+    $resultTeacher = mysqli_query($conn, $queryTeacher);
+
+    // Check if the query was successful and if a row was returned
+    if ($resultTeacher && mysqli_num_rows($resultTeacher) > 0) {
+        // Fetch the row from the result set
+        $row = mysqli_fetch_assoc($resultTeacher);
+
+        // Now you can use $row['teacher_id'] or other fields from the teacher table
+
+        // Fetch available classes from the 'classes' table
+        $queryClasses = "SELECT class_id, class_name FROM classes";
+        $resultClasses = mysqli_query($conn, $queryClasses);
+
+        // Fetch the classes assigned to the teacher from the 'teacher_classes' table
+        $queryAssignedClasses = "SELECT class_id FROM teacher_classes WHERE teacher_id = $teacherId";
+        $resultAssignedClasses = mysqli_query($conn, $queryAssignedClasses);
+
+        // Store assigned class ids in an array
+        $assignedClassIds = array();
+        if ($resultAssignedClasses && mysqli_num_rows($resultAssignedClasses) > 0) {
+            while ($assignedRow = mysqli_fetch_assoc($resultAssignedClasses)) {
+                $assignedClassIds[] = $assignedRow['class_id'];
+            }
         }
-    }
 
-    if ($resultClasses && mysqli_num_rows($resultClasses) > 0) {
-        while ($classRow = mysqli_fetch_assoc($resultClasses)) {
-            // Check if the current class is assigned to the teacher
-            $isSelected = in_array($classRow['class_id'], $assignedClassIds) ? 'selected' : '';
+        if ($resultClasses && mysqli_num_rows($resultClasses) > 0) {
+            while ($classRow = mysqli_fetch_assoc($resultClasses)) {
+                // Check if the current class is assigned to the teacher
+                $isSelected = in_array($classRow['class_id'], $assignedClassIds) ? 'selected' : '';
 
-            echo "<option value='" . $classRow['class_id'] . "' $isSelected>" . $classRow['class_name'] . "</option>";
+                echo "<option value='" . $classRow['class_id'] . "' $isSelected>" . $classRow['class_name'] . "</option>";
+            }
+        } else {
+            echo "<option value=''>No classes available</option>";
         }
     } else {
-        echo "<option value=''>No classes available</option>";
+        // Handle the case where no teacher with the provided ID was found
+        echo "No teacher found with ID: $teacherId";
     }
 
     // Close the database connection
     mysqli_close($conn);
-    ?>
+?>
+
 </select>
 
 
