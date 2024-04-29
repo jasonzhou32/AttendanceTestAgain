@@ -268,26 +268,27 @@ if (isset($_GET['student_id']) && isset($_GET['action']) && $_GET['action'] == "
     // Connect to your database
     include '../Includes/dbcon.php';
 
-    // Fetch the student_id from wherever it comes from
-    // Example: $studentId = $_SESSION['student_id']; 
-
-    // Sanitize the student id to prevent SQL injection
-    $studentId = mysqli_real_escape_string($conn, $studentId);
-
     // Fetch available classes from the 'classes' table
     $queryClasses = "SELECT class_id, class_name FROM classes";
     $resultClasses = mysqli_query($conn, $queryClasses);
 
-    // Fetch the classes assigned to the student
-    $queryAssignedClasses = "SELECT class_id FROM student_classes WHERE student_id = $studentId";
-    $resultAssignedClasses = mysqli_query($conn, $queryAssignedClasses);
+    // Check if there is a valid student ID
+    if (isset($row['student_id']) && !empty($row['student_id'])) {
+        // Fetch the classes assigned to the student
+        $studentId = $row['student_id'];
+        $queryAssignedClasses = "SELECT class_id FROM student_classes WHERE student_id = $studentId";
+        $resultAssignedClasses = mysqli_query($conn, $queryAssignedClasses);
 
-    // Store assigned class ids in an array
-    $assignedClassIds = array();
-    if ($resultAssignedClasses && mysqli_num_rows($resultAssignedClasses) > 0) {
-        while ($assignedRow = mysqli_fetch_assoc($resultAssignedClasses)) {
-            $assignedClassIds[] = $assignedRow['class_id'];
+        // Store assigned class ids in an array
+        $assignedClassIds = array();
+        if ($resultAssignedClasses && mysqli_num_rows($resultAssignedClasses) > 0) {
+            while ($assignedRow = mysqli_fetch_assoc($resultAssignedClasses)) {
+                $assignedClassIds[] = $assignedRow['class_id'];
+            }
         }
+    } else {
+        // No valid student ID, set assignedClassIds to an empty array
+        $assignedClassIds = array();
     }
 
     if ($resultClasses && mysqli_num_rows($resultClasses) > 0) {
@@ -304,6 +305,7 @@ if (isset($_GET['student_id']) && isset($_GET['action']) && $_GET['action'] == "
     // Close the database connection
     mysqli_close($conn);
 ?>
+
 
 </select>
 
