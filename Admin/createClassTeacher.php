@@ -297,8 +297,47 @@ if (isset($_GET['teacher_id']) && isset($_GET['action']) && $_GET['action'] == "
                     <label for="classSelection">Select Classes:</label>
                     <select id="classSelection" name="classSelection[]" multiple required class="form-control">
     <?php
-    
+    // Connect to your database
+    include '../Includes/dbcon.php';
+
+    // Fetch available classes from the 'classes' table
+    $queryClasses = "SELECT class_id, class_name FROM classes";
+    $resultClasses = mysqli_query($conn, $queryClasses);
+
+    // Check if there is a valid teacher ID
+    if (isset($row['teacher_id']) && !empty($row['teacher_id'])) {
+        // Fetch the classes assigned to the teacher
+        $teacherId = $row['teacher_id'];
+        $queryAssignedClasses = "SELECT class_id FROM teacher_classes WHERE teacher_id = $teacherId";
+        $resultAssignedClasses = mysqli_query($conn, $queryAssignedClasses);
+
+        // Store assigned class ids in an array
+        $assignedClassIds = array();
+        if ($resultAssignedClasses && mysqli_num_rows($resultAssignedClasses) > 0) {
+            while ($assignedRow = mysqli_fetch_assoc($resultAssignedClasses)) {
+                $assignedClassIds[] = $assignedRow['class_id'];
+            }
+        }
+    } else {
+        // No valid teacher ID, set assignedClassIds to an empty array
+        $assignedClassIds = array();
+    }
+
+    if ($resultClasses && mysqli_num_rows($resultClasses) > 0) {
+        while ($classRow = mysqli_fetch_assoc($resultClasses)) {
+            // Check if the current class is assigned to the teacher
+            $isSelected = in_array($classRow['class_id'], $assignedClassIds) ? 'selected' : '';
+
+            echo "<option value='" . $classRow['class_id'] . "' $isSelected>" . $classRow['class_name'] . "</option>";
+        }
+    } else {
+        echo "<option value=''>No classes available</option>";
+    }
+
+    // Close the database connection
+    mysqli_close($conn);
 ?>
+
 
 
 </select>
