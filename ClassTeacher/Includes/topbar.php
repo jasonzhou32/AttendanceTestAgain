@@ -1,4 +1,3 @@
-
 <?php 
   $query = "SELECT * FROM teachers WHERE teacher_id = ".$_SESSION['userId']."";
   $rs = $conn->query($query);
