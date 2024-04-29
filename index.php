@@ -18,7 +18,6 @@
             background-image: url('img/logo/loral1.jpe00g');
             background-size: cover;
             background-repeat: no-repeat;
-            padding-top: -7.5%;
         }
 
         .container-login {
@@ -26,6 +25,7 @@
             justify-content: center;
             align-items: center;
             min-height: calc(100vh - 56px); /* Subtract height of footer */
+            margin-top: 10%; 
         }
 
         .card {
