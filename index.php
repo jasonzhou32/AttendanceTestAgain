@@ -25,7 +25,7 @@
             justify-content: center;
             align-items: center;
             min-height: calc(100vh - 56px); /* Subtract height of footer */
-            margin-top: 10%; 
+            margin-top: 0px; 
         }
 
         .card {
