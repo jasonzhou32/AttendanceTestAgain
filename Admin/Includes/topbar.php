@@ -1,4 +1,3 @@
-
 <?php 
   $query = "SELECT * FROM tbladmin WHERE Id = ".$_SESSION['userId']."";
   $rs = $conn->query($query);
