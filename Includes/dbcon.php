@@ -18,5 +18,5 @@
 	// }
 
 	$conn = mysqli_init();
-	mysqli_real_connect($conn, "mynewtestserver.mysql.database.azure.com", "xilinnewtester", "MyTesterPass123", "your_database_name", 3306);
+	mysqli_real_connect($conn, $host, $user, $pass, $dbname, $port);
 ?>
