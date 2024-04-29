@@ -289,17 +289,23 @@ if (isset($_GET['volunteer_id']) && isset($_GET['action']) && $_GET['action'] ==
     $queryClasses = "SELECT class_id, class_name FROM classes";
     $resultClasses = mysqli_query($conn, $queryClasses);
 
-    // Fetch the classes assigned to the volunteer
-    $volunteerId = $row['volunteer_id']; // Assuming you have a volunteer_id in $row
-    $queryAssignedClasses = "SELECT class_id FROM volunteer_classes WHERE volunteer_id = $volunteerId";
-    $resultAssignedClasses = mysqli_query($conn, $queryAssignedClasses);
+    // Check if there is a valid volunteer ID
+    if (isset($row['volunteer_id']) && !empty($row['volunteer_id'])) {
+        // Fetch the classes assigned to the volunteer
+        $volunteerId = $row['volunteer_id'];
+        $queryAssignedClasses = "SELECT class_id FROM volunteer_classes WHERE volunteer_id = $volunteerId";
+        $resultAssignedClasses = mysqli_query($conn, $queryAssignedClasses);
 
-    // Store assigned class ids in an array
-    $assignedClassIds = array();
-    if ($resultAssignedClasses && mysqli_num_rows($resultAssignedClasses) > 0) {
-        while ($assignedRow = mysqli_fetch_assoc($resultAssignedClasses)) {
-            $assignedClassIds[] = $assignedRow['class_id'];
+        // Store assigned class ids in an array
+        $assignedClassIds = array();
+        if ($resultAssignedClasses && mysqli_num_rows($resultAssignedClasses) > 0) {
+            while ($assignedRow = mysqli_fetch_assoc($resultAssignedClasses)) {
+                $assignedClassIds[] = $assignedRow['class_id'];
+            }
         }
+    } else {
+        // No valid volunteer ID, set assignedClassIds to an empty array
+        $assignedClassIds = array();
     }
 
     if ($resultClasses && mysqli_num_rows($resultClasses) > 0) {
@@ -315,7 +321,8 @@ if (isset($_GET['volunteer_id']) && isset($_GET['action']) && $_GET['action'] ==
 
     // Close the database connection
     mysqli_close($conn);
-    ?>
+?>
+
 </select>
 
 
