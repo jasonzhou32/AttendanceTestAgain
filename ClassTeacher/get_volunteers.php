@@ -31,7 +31,7 @@ if ($rs && $rs->num_rows > 0) {
     while ($rows = $rs->fetch_assoc()) {
         $sn++;
         $volunteerId = $rows['volunteer_id'];
-        $classId = $rows['class_id'];
+        $classId = $rows['class_name'];
         $volunteerName = $rows['volunteer_name'];
 
         $htmlOutput .= "
