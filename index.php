@@ -18,7 +18,7 @@
             background-image: url('img/logo/loral1.jpe00g');
             background-size: cover;
             background-repeat: no-repeat;
-            padding-top: 10%;
+            padding-top: -5%;
         }
 
         .container-login {
