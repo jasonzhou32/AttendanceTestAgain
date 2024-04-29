@@ -268,12 +268,17 @@ if (isset($_GET['student_id']) && isset($_GET['action']) && $_GET['action'] == "
     // Connect to your database
     include '../Includes/dbcon.php';
 
+    // Fetch the student_id from wherever it comes from
+    // Example: $studentId = $_SESSION['student_id']; 
+
+    // Sanitize the student id to prevent SQL injection
+    $studentId = mysqli_real_escape_string($conn, $studentId);
+
     // Fetch available classes from the 'classes' table
     $queryClasses = "SELECT class_id, class_name FROM classes";
     $resultClasses = mysqli_query($conn, $queryClasses);
 
     // Fetch the classes assigned to the student
-    $studentId = $row['student_id']; // Assuming you have a student_id in $row
     $queryAssignedClasses = "SELECT class_id FROM student_classes WHERE student_id = $studentId";
     $resultAssignedClasses = mysqli_query($conn, $queryAssignedClasses);
 
@@ -298,7 +303,8 @@ if (isset($_GET['student_id']) && isset($_GET['action']) && $_GET['action'] == "
 
     // Close the database connection
     mysqli_close($conn);
-    ?>
+?>
+
 </select>
 
 
