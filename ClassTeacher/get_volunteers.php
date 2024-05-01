@@ -31,7 +31,8 @@ if ($rs && $rs->num_rows > 0) {
     while ($rows = $rs->fetch_assoc()) {
         $sn++;
         $volunteerId = $rows['volunteer_id'];
-        $classId = $rows['class_name'];
+        $className = $rows['class_name'];
+        $classId = $rows['class_id'];
         $volunteerName = $rows['volunteer_name'];
 
         $htmlOutput .= "
@@ -39,7 +40,7 @@ if ($rs && $rs->num_rows > 0) {
                 <td>".$sn."</td>
                 <td>".$volunteerId."</td>
                 <td>".$volunteerName."</td>
-                <td>".$classId."</td>
+                <td>".$className."</td>
                 <td>
                     <!-- Create checkboxes with class_id as array index and volunteer_id as value -->
                     <input type='checkbox' name='check[$classId][]' value='$volunteerId' class='form-control'>
