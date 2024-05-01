@@ -9,6 +9,13 @@ if (isset($_POST['save'])) {
     $dateTaken = isset($_POST['attendanceDate']) ? $_POST['attendanceDate'] : date("Y-m-d");
     $teacher_id = $_SESSION['userId'];
 
+    // Check if dateTaken does not contain the character '-' and handle the error
+    if (strpos($dateTaken, '-') === false) {
+        $_SESSION['error_message'] = "Attendance taking failed: no valid date selected.";
+        header("Location: takeAttendance.php");
+        exit();
+    }
+
     foreach ($_POST['check'] as $class_id => $checked_students) {
         $class_id = intval($class_id);
         // Delete previous entries for the specific class and date
