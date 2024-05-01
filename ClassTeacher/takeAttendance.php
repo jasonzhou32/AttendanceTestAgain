@@ -12,6 +12,11 @@ if (isset($_SESSION['success_message'])) {
   unset($_SESSION['success_message']);
 }
 
+if (isset($_SESSION['error_message'])) {
+  echo "<script>var errorMessage = '{$_SESSION['error_message']}';</script>";
+  unset($_SESSION['error_message']); // Clear the message to prevent it from popping up again on refresh
+}
+
 
 if(isset($_POST['save'])){
   
