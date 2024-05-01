@@ -44,7 +44,7 @@ if (isset($_POST['save'])) {
 
     echo "Attendance taken successfully!";
 
-    $_SESSION['success_message'] = "Attendance taken successfully!";
+    $_SESSION['success_message'] = "Attendance taken successfully for date:$dateTaken!";
 
     header("Location: takeVolunteerAttendance.php");
     exit();
