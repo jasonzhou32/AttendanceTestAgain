@@ -12,7 +12,7 @@ if (isset($_POST['save'])) {
     // Check if dateTaken does not contain the character '-' and handle the error
     if (strpos($dateTaken, '-') === false) {
         $_SESSION['error_message'] = "Attendance taking failed: no valid date selected.";
-        header("Location: takeAttendance.php");
+        header("Location: takeVolunteerAttendance.php");
         exit();
     }
 
