@@ -9,6 +9,13 @@ if (isset($_POST['save'])) {
     $dateTaken = isset($_POST['attendanceDate']) ? $_POST['attendanceDate'] : date("Y-m-d");
     $teacher_id = $_SESSION['userId'];
 
+    // Check if dateTaken is null and handle the error
+    if ($dateTaken === null) {
+        $_SESSION['error_message'] = "Attendance taking failed: no date selected.";
+        header("Location: takeVolunteerAttendance.php");
+        exit();
+    }
+
     foreach ($_POST['check'] as $class_id => $checked_volunteers) {
         $class_id = intval($class_id);
         // Delete previous entries for the specific class and date
