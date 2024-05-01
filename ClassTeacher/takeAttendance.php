@@ -224,7 +224,8 @@ if ($result_attendance) {
                                 $sn = $sn + 1;
                                 $studentId = $rows['student_id'];
                                 // changed from classId to class_name, but just kept it called $classId
-                                $classId = $rows['class_name'];
+                                $className = $rows['class_name'];
+                                $classId = $rows['class_id'];
                                 $studentName = $rows['student_name'];
                             
                                 echo "
@@ -232,7 +233,7 @@ if ($result_attendance) {
                                         <td>".$sn."</td>
                                         <td>".$studentId."</td>
                                         <td>".$studentName."</td>
-                                        <td>".$classId."</td>
+                                        <td>".$className."</td>
                                         <td>
                                             <!-- Create checkboxes with class_id as array index and student_id as value -->
                                             <input type='checkbox' name='check[$classId][]' value='$studentId' class='form-control'>
