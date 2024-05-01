@@ -9,9 +9,9 @@ if (isset($_POST['save'])) {
     $dateTaken = isset($_POST['attendanceDate']) ? $_POST['attendanceDate'] : date("Y-m-d");
     $teacher_id = $_SESSION['userId'];
 
-    // Check if dateTaken is null and handle the error
-    if ($dateTaken === null) {
-        $_SESSION['error_message'] = "Attendance taking failed: no date selected.";
+    // Check if dateTaken does not contain the character '-' and handle the error
+    if (strpos($dateTaken, '-') === false) {
+        $_SESSION['error_message'] = "Attendance taking failed: no valid date selected.";
         header("Location: takeVolunteerAttendance.php");
         exit();
     }
@@ -44,7 +44,7 @@ if (isset($_POST['save'])) {
 
     echo "Attendance taken successfully!";
 
-    $_SESSION['success_message'] = "Attendance taken successfully for date:$dateTaken!";
+    $_SESSION['success_message'] = "Attendance taken successfully!";
 
     header("Location: takeVolunteerAttendance.php");
     exit();
