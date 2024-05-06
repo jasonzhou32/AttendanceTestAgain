@@ -129,7 +129,7 @@ if ($result_attendance) {
         <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Take Attendance (Today's Date : <?php echo $todaysDate = date("m-d-Y");?>)</h1>
+            <h1 class="h3 mb-0 text-gray-800">Take Attendance (Today's Date: <?php echo $todaysDate = date("m-d-Y");?>)</h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="./">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">All Volunteers in Class</li>
@@ -267,6 +267,57 @@ if ($result_attendance) {
 <!-- End of Form -->
 
 
+<form method="post" action="add_volunteer.php">
+    <div class="card mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Add New Volunteer</h6>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="volunteerName">Volunteer Name:</label>
+                <input type="text" class="form-control" id="volunteerName" name="volunteerName" required>
+            </div>
+            <div class="form-group">
+                <label for="volunteerEmail">Volunteer Email:</label>
+                <input type="email" class="form-control" id="volunteerEmail" name="volunteerEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="volunteerNumber">Volunteer Phone Number:</label>
+                <input type="tel" class="form-control" id="volunteerNumber" name="volunteerNumber" required>
+            </div>
+
+
+            <div class="form-group">
+                <label for="volunteerClasses">Select Classes:</label>
+                <select id="volunteerClasses" name="volunteerClasses[]" class="form-control" multiple required>
+                    <?php
+                    // Fetch classes associated with the teacher
+                    $queryClasses = "SELECT c.class_id, c.class_name
+                                     FROM classes c
+                                     INNER JOIN teacher_classes tc ON c.class_id = tc.class_id
+                                     WHERE tc.teacher_id = '$teacherId'";
+
+                    $resultClasses = mysqli_query($conn, $queryClasses);
+
+                    if ($resultClasses && mysqli_num_rows($resultClasses) > 0) {
+                        while ($row = mysqli_fetch_assoc($resultClasses)) {
+                            $classId = $row['class_id'];
+                            $className = $row['class_name'];
+                            echo "<option value='$classId'>$className</option>";
+                        }
+                    }
+                    ?>
+                </select>
+            </div>
+
+            <button type="submit" name="addVolunteer" class="btn btn-primary">Add Volunteer</button>
+        </div>
+    </div>
+</form>
+
+
+
+
           <!--Row-->
 
           <!-- Documentation Link -->
@@ -333,6 +384,19 @@ $(document).ready(function() {
     });
 });
 </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+        $('#volunteerClasses').select2({
+            placeholder: 'Select classes', // Placeholder text
+            allowClear: true, // Adds a clear button
+            // Add any additional configurations you want
+        });
+    });
+  </script>
 
 <script>
 // Check if the success message variable is set and not empty
