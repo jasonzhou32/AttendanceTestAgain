@@ -3,7 +3,6 @@ error_reporting(0);
 include '../Includes/dbcon.php';
 include '../Includes/session.php';
 
-
 // Check if there's a success message
 if (isset($_SESSION['success_message'])) {
   // Store the success message in a JavaScript variable
@@ -129,7 +128,7 @@ if ($result_attendance) {
         <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Take Attendance (Today's Date : <?php echo $todaysDate = date("m-d-Y");?>)</h1>
+            <h1 class="h3 mb-0 text-gray-800">Take Attendance (Today's Date: <?php echo $todaysDate = date("m-d-Y");?>)</h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="./">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">All Students in Class</li>
@@ -258,6 +257,7 @@ if ($result_attendance) {
                     <button type="submit" name="save" class="btn btn-primary">Take Attendance</button>
                 </div>
             </div>
+            
         </div>
     </div>
 
@@ -265,6 +265,47 @@ if ($result_attendance) {
 
 </form>
 <!-- End of Form -->
+
+
+
+
+<form method="post" action="add_student.php">
+    <div class="card mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Add New Student</h6>
+        </div>
+        <div class="card-body">
+            <!-- Input fields for student name and class selection -->
+            <div class="form-group">
+                <label for="studentName">Student Name:</label>
+                <input type="text" class="form-control" id="studentName" name="studentName" required>
+            </div>
+            <div class="form-group">
+                <label for="studentClasses">Select Classes:</label>
+                <select id="studentClasses" name="studentClasses[]" class="form-control" multiple required>
+                    <?php
+                    // Fetch classes associated with the teacher
+                    $queryClasses = "SELECT c.class_id, c.class_name
+                                     FROM classes c
+                                     INNER JOIN teacher_classes tc ON c.class_id = tc.class_id
+                                     WHERE tc.teacher_id = '$teacherId'";
+
+                    $resultClasses = mysqli_query($conn, $queryClasses);
+
+                    if ($resultClasses && mysqli_num_rows($resultClasses) > 0) {
+                        while ($row = mysqli_fetch_assoc($resultClasses)) {
+                            $classId = $row['class_id'];
+                            $className = $row['class_name'];
+                            echo "<option value='$classId'>$className</option>";
+                        }
+                    }
+                    ?>
+                </select>
+            </div>
+            <button type="submit" name="addStudent" class="btn btn-primary">Add Student</button>
+        </div>
+    </div>
+</form>
 
 
           <!--Row-->
@@ -333,6 +374,18 @@ $(document).ready(function() {
     });
 });
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+        $('#studentClasses').select2({
+            placeholder: 'Select classes', // Placeholder text
+            allowClear: true, // Adds a clear button
+            // Add any additional configurations you want
+        });
+    });
+  </script>
 
 <script>
 // Check if the success message variable is set and not empty
