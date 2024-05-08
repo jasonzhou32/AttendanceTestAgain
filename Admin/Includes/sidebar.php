@@ -130,6 +130,7 @@
         <div id="collapseBootstrapcon3" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">View Attendance</h6>
+            <a class="collapse-item" href="viewClassAttendance.php" style="font-size: 13px;">View Class Attendance</a>
             <a class="collapse-item" href="viewStudentAttendance.php" style="font-size: 13px;">View Student Attendance</a>
             <a class="collapse-item" href="viewVolunteerAttendance.php" style="font-size: 13px;">View Volunteer Attendance</a>
             <!-- <a class="collapse-item" href="downloadRecord.php">Today's Report (xls)</a> -->
