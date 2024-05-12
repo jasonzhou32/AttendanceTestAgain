@@ -193,7 +193,9 @@ if ($result_attendance) {
                                 <th>Volunteer ID</th>
                                 <th>Volunteer Name</th>
                                 <th>Class Name</th>
-                                <th>Check</th>
+                                <th>
+                                    Check All <input type="checkbox" id="checkAll" style="vertical-align: middle; margin-left: 4px; margin-bottom: 5px; transform: scale(1.3);">
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -404,6 +406,18 @@ if (successMessage && successMessage.trim() !== '') {
     // Display the success message in a pop-up
     alert(successMessage);
 }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var checkAll = document.getElementById('checkAll');
+        checkAll.addEventListener('change', function() {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"][name^="check"]');
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = this.checked;
+            }
+        });
+    });
 </script>
 
 </body>
