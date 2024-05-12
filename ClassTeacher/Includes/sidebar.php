@@ -1,13 +1,17 @@
 <html>
   <head>
-  <style>
+    <style>
         /* Adjusting sidebar for mobile screens */
         @media (max-width: 768px) {
             .navbar-nav.sidebar {
-                position: relative;
-                width: 100%;
-                height: auto;
-                overflow-y: auto;
+                position: fixed; /* Adjust position to fixed */
+                top: 0; /* Ensure it starts from the top of the viewport */
+                left: 0; /* Ensure it starts from the left of the viewport */
+                width: 250px; /* Set a fixed width for the sidebar */
+                height: 100%; /* Make it take up the full height of the viewport */
+                background-color: #fff; /* Add a background color for better visibility */
+                overflow-y: auto; /* Allow scrolling if content exceeds viewport height */
+                border-right: 1px solid #ddd; /* Add a border to visually separate it */
             }
         }
     </style>
