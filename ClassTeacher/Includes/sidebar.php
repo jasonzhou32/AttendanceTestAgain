@@ -1,22 +1,38 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website Title</title>
     <style>
         /* Adjusting sidebar for mobile screens */
         @media (max-width: 768px) {
             .navbar-nav.sidebar {
-                position: fixed; /* Adjust position to fixed */
-                top: 0; /* Ensure it starts from the top of the viewport */
-                left: 0; /* Ensure it starts from the left of the viewport */
-                width: 250px; /* Set a fixed width for the sidebar */
-                height: 100%; /* Make it take up the full height of the viewport */
-                background-color: #fff; /* Add a background color for better visibility */
-                overflow-y: auto; /* Allow scrolling if content exceeds viewport height */
-                border-right: 1px solid #ddd; /* Add a border to visually separate it */
+                display: none; /* Hide sidebar by default on mobile */
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 250px;
+                height: 100%;
+                background-color: #fff;
+                overflow-y: auto;
+                border-right: 1px solid #ddd;
+            }
+            .sidebar-toggle-btn {
+                display: block; /* Ensure button is visible */
+                position: fixed;
+                top: 10px;
+                left: 10px;
+                z-index: 9999; /* Ensure button appears above other content */
             }
         }
     </style>
   </head>
   <body>
+  <button class="sidebar-toggle-btn" onclick="toggleSidebar()">Toggle Sidebar</button>
+    <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+        <!-- Sidebar content -->
+    </ul>
   <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
       <a class="sidebar-brand d-flex align-items-center bg-gradient-primary justify-content-center" href="index.php">
         <div class="sidebar-brand-icon" >
@@ -130,5 +146,16 @@
       <hr class="sidebar-divider">
      
     </ul>
+
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById("accordionSidebar");
+            if (sidebar.style.display === "none") {
+                sidebar.style.display = "block";
+            } else {
+                sidebar.style.display = "none";
+            }
+        }
+    </script>
   </body>
 </html>
