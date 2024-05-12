@@ -1,4 +1,19 @@
- <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+<html>
+  <head>
+  <style>
+        /* Adjusting sidebar for mobile screens */
+        @media (max-width: 768px) {
+            .navbar-nav.sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                overflow-y: auto;
+            }
+        }
+    </style>
+  </head>
+  <body>
+  <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
       <a class="sidebar-brand d-flex align-items-center bg-gradient-primary justify-content-center" href="index.php">
         <div class="sidebar-brand-icon" >
           <img src="img/logo/attnlg.jpg">
@@ -111,3 +126,5 @@
       <hr class="sidebar-divider">
      
     </ul>
+  </body>
+</html>
