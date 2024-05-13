@@ -97,7 +97,7 @@
   }
   &.toggled {
     width: 0 !important;
-    overflow: visible;
+    overflow: hidden;
     #sidebarToggle::after {
       content: '\f105';
       font-family: 'Font Awesome 5 Free';
@@ -134,7 +134,6 @@
   }
 }
 
-// Remove the media query restriction for iPhones
 @include media-breakpoint-up(md) {
   .sidebar {
     width: $sidebar-base-width !important;
