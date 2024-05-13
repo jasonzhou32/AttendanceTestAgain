@@ -134,6 +134,7 @@
   }
 }
 
+// Remove the media query restriction for iPhones
 @include media-breakpoint-up(md) {
   .sidebar {
     width: $sidebar-base-width !important;
