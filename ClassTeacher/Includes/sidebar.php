@@ -1,10 +1,3 @@
-<!-- Add a button to toggle the sidebar -->
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
-
-<!-- Sidebar -->
-<div class="collapse navbar-collapse" id="sidebarCollapse">
 <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
       <a class="sidebar-brand d-flex align-items-center bg-gradient-primary justify-content-center" href="index.php">
         <div class="sidebar-brand-icon" >
@@ -118,4 +111,3 @@
       <hr class="sidebar-divider">
      
     </ul>
-</div>
