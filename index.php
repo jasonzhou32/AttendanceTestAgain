@@ -35,6 +35,22 @@ include 'Includes/dbcon.php';
             height: calc(100vh - 21.5%);
             width: 50%;
             margin: 0 auto; /* Center horizontally */
+            padding: 10px; /* Add some padding for better look */
+            box-sizing: border-box; /* Include padding in the element's total width and height */
+        }
+        
+        /* Media query for devices with a max width of 768px (common breakpoint for tablets and mobile devices) */
+        @media (max-width: 768px) {
+            .container-login {
+                width: 80%; /* Increase the width to 80% on smaller screens */
+            }
+        }
+        
+        /* Media query for devices with a max width of 480px (common breakpoint for mobile devices) */
+        @media (max-width: 480px) {
+            .container-login {
+                width: 90%; /* Increase the width to 90% on the smallest screens */
+            }
         }
 
         .card {
