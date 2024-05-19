@@ -34,6 +34,7 @@ include 'Includes/dbcon.php';
             align-items: center;
             height: calc(100vh - 21.5%);
             width: 50%;
+            margin: 0 auto; /* Center horizontally */
         }
 
         .card {
