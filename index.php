@@ -32,12 +32,13 @@ include 'Includes/dbcon.php';
             justify-content: center;
             align-items: center;
             height: calc(100vh - 20%);
+            padding: 0 5%;
         }
 
         .card {
             border-radius: 2%;
             box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
-            width: 90%;
+            width: 100%;
             max-width: 500px;
         }
 
@@ -68,6 +69,36 @@ include 'Includes/dbcon.php';
             padding: 1%;
             text-align: center;
             border-top: 0.1rem solid #ddd;
+        }
+
+        @media (min-width: 768px) {
+            .container-login {
+                padding: 0 10%;
+            }
+
+            .card {
+                width: 80%;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .container-login {
+                padding: 0 20%;
+            }
+
+            .card {
+                width: 60%;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .container-login {
+                padding: 0 30%;
+            }
+
+            .card {
+                width: 50%;
+            }
         }
     </style>
 </head>
