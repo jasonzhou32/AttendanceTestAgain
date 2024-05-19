@@ -5,6 +5,7 @@ session_start();
 include 'Includes/dbcon.php';
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +23,7 @@ include 'Includes/dbcon.php';
 
     <style>
         body {
-            background-image: url('img/logo/loral1.jpg');
+            background-image: url('img/logo/loral1.jpe00g');
             background-size: cover;
             background-repeat: no-repeat;
         }
@@ -31,32 +32,30 @@ include 'Includes/dbcon.php';
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: calc(100vh - 21.5%);
         }
 
         .card {
-            border-radius: 0.5rem;
-            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .login-form {
-            padding: 2rem;
+            padding: 20px;
         }
 
         .form-control {
-            border-radius: 1rem;
-            padding: 0.75rem;
+            border-radius: 20px;
+            padding: 10px;
         }
 
         .btn-login {
-            border-radius: 1rem;
-            padding: 0.75rem;
+            border-radius: 20px;
+            padding: 10px;
         }
 
         .alert {
-            border-radius: 0.5rem;
+            border-radius: 10px;
         }
 
         /* Updated footer styling */
@@ -65,75 +64,52 @@ include 'Includes/dbcon.php';
             bottom: 0;
             width: 100%;
             background-color: #fff;
-            padding: 1rem 0;
+            padding: 10px 0;
             text-align: center;
             border-top: 1px solid #ddd;
-        }
-
-        @media (min-width: 576px) {
-            .card {
-                width: 80%;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .card {
-                width: 60%;
-            }
-        }
-
-        @media (min-width: 992px) {
-            .card {
-                width: 40%;
-            }
-        }
-
-        @media (min-width: 1200px) {
-            .card {
-                width: 30%;
-            }
         }
     </style>
 </head>
 
 <body class="bg-gradient-login">
     <div class="container-login">
-        <div class="card shadow-sm">
-            <div class="card-body p-0">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="login-form">
-                            <h5 align="center">STUDENT ATTENDANCE SYSTEM</h5>
-                            <div class="text-center">
-                                <img src="img/logo/attnlg.jpg" style="width:100px;height:100px">
-                                <br><br>
-                                <h1 class="h4 text-gray-900 mb-4">Login Panel</h1>
-                            </div>
-                            <form class="user" method="Post" action="">
-                                <div class="form-group">
-                                    <select required name="userType" class="form-control mb-3">
-                                        <option value="">--Select User Role--</option>
-                                        <option value="Administrator">Administrator</option>
-                                        <option value="ClassTeacher">Class Teacher</option>
-                                    </select>
+        <div class="col-xl-10 col-lg-12 col-md-9">
+            <div class="card shadow-sm my-5">
+                <div class="card-body p-0">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="login-form">
+                                <h5 align="center">STUDENT ATTENDANCE SYSTEM</h5>
+                                <div class="text-center">
+                                    <img src="img/logo/attnlg.jpg" style="width:100px;height:100px">
+                                    <br><br>
+                                    <h1 class="h4 text-gray-900 mb-4">Login Panel</h1>
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" required name="username" id="exampleInputEmail" placeholder="Enter Email Address">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" name="password" required class="form-control" id="exampleInputPassword" placeholder="Enter Password">
-                                </div>
-                                <div class="form-group">
-                                    <div class="custom-control custom-checkbox small" style="line-height: 1.5rem;">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck">
+                                <form class="user" method="Post" action="">
+                                    <div class="form-group">
+                                        <select required name="userType" class="form-control mb-3">
+                                            <option value="">--Select User Role--</option>
+                                            <option value="Administrator">Administrator</option>
+                                            <option value="ClassTeacher">Class Teacher</option>
+                                        </select>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" class="btn btn-success btn-block btn-login" value="Login" name="login" />
-                                </div>
-                            </form>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" required name="username" id="exampleInputEmail" placeholder="Enter Email Address">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="password" required class="form-control" id="exampleInputPassword" placeholder="Enter Password">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox small" style="line-height: 1.5rem;">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-success btn-block btn-login" value="Login" name="login" />
+                                    </div>
+                                </form>
 
-                            <?php
+                                <?php
 if(isset($_POST['login'])){
    $userType = $_POST['userType'];
    $username = $_POST['username'];
@@ -177,8 +153,9 @@ if(isset($_POST['login'])){
    }
 }
 ?>
-                            <div class="text-center">
-                                <!-- Add social login buttons if required -->
+                                <div class="text-center">
+                                    <!-- Add social login buttons if required -->
+                                </div>
                             </div>
                         </div>
                     </div>
