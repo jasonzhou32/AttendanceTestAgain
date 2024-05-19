@@ -5,7 +5,6 @@ session_start();
 include 'Includes/dbcon.php';
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,30 +31,32 @@ include 'Includes/dbcon.php';
             display: flex;
             justify-content: center;
             align-items: center;
-            height: calc(100vh - 21.5%);
+            height: calc(100vh - 20%);
         }
 
         .card {
-            border-radius: 15px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 2%;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
         }
 
         .login-form {
-            padding: 20px;
+            padding: 5%;
         }
 
         .form-control {
-            border-radius: 20px;
-            padding: 10px;
+            border-radius: 2rem;
+            padding: 2%;
         }
 
         .btn-login {
-            border-radius: 20px;
-            padding: 10px;
+            border-radius: 2rem;
+            padding: 2%;
         }
 
         .alert {
-            border-radius: 10px;
+            border-radius: 1rem;
         }
 
         /* Updated footer styling */
@@ -64,9 +65,9 @@ include 'Includes/dbcon.php';
             bottom: 0;
             width: 100%;
             background-color: #fff;
-            padding: 10px 0;
+            padding: 1%;
             text-align: center;
-            border-top: 1px solid #ddd;
+            border-top: 0.1rem solid #ddd;
         }
     </style>
 </head>
@@ -81,7 +82,7 @@ include 'Includes/dbcon.php';
                             <div class="login-form">
                                 <h5 align="center">STUDENT ATTENDANCE SYSTEM</h5>
                                 <div class="text-center">
-                                    <img src="img/logo/attnlg.jpg" style="width:100px;height:100px">
+                                    <img src="img/logo/attnlg.jpg" style="width:20%; height:auto;">
                                     <br><br>
                                     <h1 class="h4 text-gray-900 mb-4">Login Panel</h1>
                                 </div>
