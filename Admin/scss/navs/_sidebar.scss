@@ -1,4 +1,22 @@
-// Sidebar
+// Variables
+$sidebar-collapsed-width: 80px;
+$sidebar-base-width: 250px;
+$grid-gutter-width: 30px;
+$border-radius: 0.25rem;
+$box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+$dropdown-font-size: 0.875rem;
+$transition-collapse: height 0.2s ease;
+$topbar-base-height: 56px;
+$gray-200: #e3e6f0;
+$gray-300: #d1d3e2;
+$gray-500: #858796;
+$gray-600: #6c757d;
+$gray-700: #5a5c69;
+$gray-900: #3a3b45;
+$primary: #4e73df;
+$white: #fff;
+
+// Sidebar SCSS
 .sidebar {
   width: $sidebar-collapsed-width;
   min-height: 100vh;
@@ -27,8 +45,6 @@
       left: calc(#{$sidebar-collapsed-width} + #{$grid-gutter-width} / 2);
       z-index: 1;
       top: 2px;
-      // Grow In Animation
-      @extend .animated--grow-in;
       .collapse-inner {
         border-radius: $border-radius;
         box-shadow: $box-shadow;
@@ -132,13 +148,10 @@
     font-size: 0.65rem;
     @extend .text-uppercase;
   }
-}
 
-@include media-breakpoint-up(md) {
-  .sidebar {
+  @include media-breakpoint-up(md) {
     width: $sidebar-base-width !important;
     .nav-item {
-      // Accordion
       .collapse {
         position: relative;
         left: 0;
@@ -172,7 +185,6 @@
           font-size: 0.85rem;
           display: inline;
         }
-        // Accordion Arrow Icon
         &[data-toggle="collapse"] {
           &::after {
             width: 1rem;
@@ -205,13 +217,11 @@
       overflow: visible;
       width: $sidebar-collapsed-width !important;
       .nav-item {
-        // Accordion
         .collapse {
           position: absolute;
           left: calc(#{$sidebar-collapsed-width} + #{$grid-gutter-width} / 2);
           z-index: 1;
           top: 2px;
-          // Grow In Animation for Toggled State
           animation-name: growIn;
           animation-duration: 200ms;
           animation-timing-function: transform cubic-bezier(.18,1.25,.4,1), opacity cubic-bezier(0,1,.4,1);
@@ -328,7 +338,7 @@
   }
   .nav-item {
     .nav-link {
-      color: fade-out($white, 0.2);
+      color: $gray-400;
       i {
         color: fade-out($white, 0.7);
       }
@@ -342,7 +352,7 @@
       }
       // Accordion
       &[data-toggle="collapse"]::after {
-        color: fade-out($white, 0.5);
+        color: $gray-500;
       }
     }
     &.active {
@@ -356,17 +366,25 @@
   }
   // Color the sidebar toggler
   #sidebarToggle {
-    background-color: fade-out($white, 0.8);
+    background-color: $gray-500;
     &::after {
-      color: fade-out($white, 0.5);
+      color: fade-out($white, 0.8);
     }
     &:hover {
-      background-color: fade-out($white, 0.75);
+      background-color: $gray-600;
     }
   }
-  &.toggled {
-    #sidebarToggle::after {
-      color: fade-out($white, 0.5);
-    }
+}
+
+// Add media queries to hide sidebar on small screens
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+  .sidebar-toggled .sidebar {
+    display: block;
+    width: 100%;
+    position: absolute;
+    z-index: 1030;
   }
 }
