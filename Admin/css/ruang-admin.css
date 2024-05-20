@@ -1065,31 +1065,30 @@ a:focus {
     letter-spacing: 0.13rem;
   }
 
+  /* Default styles */
   .sidebar.toggled .sidebar-brand .sidebar-brand-text {
     display: inline;
   }
-
+  
   .sidebar {
     width: 0 !important;
     overflow: visible;
     transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
   }
-
-  .sidebar .sidebar-brand {
-    overflow: visible;
-  }
-
-  .sidebar .sidebar-brand .sidebar-brand-text {
-    overflow: visible;
-  }
-
-  .sidebar .nav-item {
-    overflow: visible;
-  }
-
+  
+  .sidebar .sidebar-brand,
+  .sidebar .nav-item,
+  .sidebar .sidebar-brand .sidebar-brand-text,
   .sidebar .sidebar-brand .sidebar-brand-icon img {
     overflow: visible;
+  }
+  
+  /* Media query for smaller devices */
+  @media (max-width: 767px) { /* Adjust max-width as needed */
+    .sidebar.toggled {
+      width: auto !important; /* Set width to auto for smaller screens */
+    }
   }
 
   .sidebar hr.sidebar-divider {
