@@ -40,6 +40,7 @@ include '../Includes/dbcon.php';
     <!-- Sidebar -->
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
+           <button class="btn btn-primary" id="sidebarToggle">Toggle Sidebar</button>
         <!-- TopBar -->
            <?php include "Includes/topbar.php";?>
         <!-- Topbar -->
@@ -242,6 +243,16 @@ $totAttendance = mysqli_num_rows($query1);
   <script src="js/ruang-admin.min.js"></script>
   <script src="../vendor/chart.js/Chart.min.js"></script>
   <script src="js/demo/chart-area-demo.js"></script>  
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#sidebarToggle').on('click', function () {
+                $('.sidebar').toggleClass('toggled');
+                $('body').toggleClass('sidebar-toggled');
+            });
+        });
+    </script>
+
 </body>
 
 </html>
