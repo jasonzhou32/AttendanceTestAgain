@@ -54,6 +54,17 @@ a:focus {
   }
 }
 
+@media (max-width: 767px) {
+  .container-fluid {
+    display: none; /* Hide the main content */
+  }
+
+  .sidebar {
+    width: 100%; /* Make the sidebar full-width */
+    z-index: 200; /* Higher z-index to ensure it covers other content */
+  }
+}
+
 
 .scroll-to-top {
   position: fixed;
