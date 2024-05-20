@@ -1065,7 +1065,7 @@ a:focus {
     letter-spacing: 0.13rem;
   }
 
-  /* Default styles */
+    /* Default styles */
   .sidebar.toggled .sidebar-brand .sidebar-brand-text {
     display: inline;
   }
@@ -1083,11 +1083,21 @@ a:focus {
   .sidebar .sidebar-brand .sidebar-brand-icon img {
     overflow: visible;
   }
-  
-  /* Media query for smaller devices */
+
+  /* Media query for iPhones or smaller screens */
   @media (max-width: 767px) { /* Adjust max-width as needed */
     .sidebar.toggled {
-      width: auto !important; /* Set width to auto for smaller screens */
+      width: 100vw !important; /* Set width to cover the entire viewport width */
+      height: 100vh; /* Set height to cover the entire viewport height */
+      position: fixed; /* Fix the position of the sidebar */
+      top: 0;
+      left: 0;
+      z-index: 1000; /* Ensure sidebar appears on top of other content */
+    }
+  
+    /* Hide content when sidebar is toggled */
+    .content {
+      display: none;
     }
   }
 
