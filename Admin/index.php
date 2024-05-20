@@ -30,9 +30,7 @@ include '../Includes/dbcon.php';
   <title>Dashboard</title>
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-
-
-    
+  <link href="css/ruang-admin.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
