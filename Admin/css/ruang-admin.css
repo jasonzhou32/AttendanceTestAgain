@@ -1083,7 +1083,7 @@ a:focus {
   .sidebar .sidebar-brand .sidebar-brand-icon img {
     overflow: visible;
   }
-
+  
   /* Media query for iPhones or smaller screens */
   @media (max-width: 767px) { /* Adjust max-width as needed */
     .sidebar.toggled {
@@ -1095,8 +1095,8 @@ a:focus {
       z-index: 1000; /* Ensure sidebar appears on top of other content */
     }
   
-    /* Hide content when sidebar is toggled */
-    .content {
+    /* Hide other content when sidebar is toggled */
+    .wrapper > *:not(.sidebar.toggled) {
       display: none;
     }
   }
