@@ -54,6 +54,17 @@ a:focus {
   }
 }
 
+@media (max-width: 767px) {
+  .container-fluid {
+    display: none; /* Hide the main content */
+  }
+
+  .sidebar {
+    width: 100%; /* Make the sidebar full-width */
+    z-index: 200; /* Higher z-index to ensure it covers other content */
+  }
+}
+
 
 .scroll-to-top {
   position: fixed;
@@ -1065,31 +1076,40 @@ a:focus {
     letter-spacing: 0.13rem;
   }
 
+    /* Default styles */
   .sidebar.toggled .sidebar-brand .sidebar-brand-text {
     display: inline;
   }
-
+  
   .sidebar {
     width: 0 !important;
-    overflow: hidden;
+    overflow: visible;
     transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
   }
-
-  .sidebar .sidebar-brand {
-    overflow: hidden;
-  }
-
-  .sidebar .sidebar-brand .sidebar-brand-text {
-    overflow: hidden;
-  }
-
-  .sidebar .nav-item {
-    overflow: hidden;
-  }
-
+  
+  .sidebar .sidebar-brand,
+  .sidebar .nav-item,
+  .sidebar .sidebar-brand .sidebar-brand-text,
   .sidebar .sidebar-brand .sidebar-brand-icon img {
-    overflow: hidden;
+    overflow: visible;
+  }
+  
+  /* Media query for iPhones or smaller screens */
+  @media (max-width: 767px) { /* Adjust max-width as needed */
+    .sidebar.toggled {
+      width: 100vw !important; /* Set width to cover the entire viewport width */
+      height: 100vh; /* Set height to cover the entire viewport height */
+      position: fixed; /* Fix the position of the sidebar */
+      top: 0;
+      left: 0;
+      z-index: 1000; /* Ensure sidebar appears on top of other content */
+    }
+  
+    /* Hide other content when sidebar is toggled */
+    .wrapper > *:not(.sidebar.toggled) {
+      display: none;
+    }
   }
 
   .sidebar hr.sidebar-divider {
