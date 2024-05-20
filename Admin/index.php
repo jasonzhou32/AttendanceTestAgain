@@ -15,146 +15,143 @@
 </head>
 
 <body id="page-top">
-  <div class="container-fluid">
-    <div class="row">
-      <!-- Sidebar -->
-      <div id="wrapper" class="col-lg-3 col-12">
-        <?php include "Includes/sidebar.php";?>
-      </div>
-      
-      <!-- Content Wrapper -->
-      <div id="content-wrapper" class="col-lg-9 col-12 d-flex flex-column">
-        <div id="content">
-          <!-- TopBar -->
-          <?php include "Includes/topbar.php";?>
-          <!-- Topbar -->
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <?php include "Includes/sidebar.php";?>
+    <!-- Sidebar -->
+    
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <!-- TopBar -->
+        <?php include "Includes/topbar.php";?>
+        <!-- Topbar -->
+        
+        <!-- Container Fluid-->
+        <div class="container-fluid" id="container-wrapper">
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Administrator Dashboard</h1>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="./">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            </ol>
+          </div>
 
-          <!-- Container Fluid-->
-          <div class="container-fluid" id="container-wrapper">
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-              <h1 class="h3 mb-0 text-gray-800">Administrator Dashboard</h1>
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="./">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-              </ol>
-            </div>
-
-            <div class="row mb-3">
-              <!-- Class Card -->
-              <?php 
-              $query1=mysqli_query($conn,"SELECT * from classes");                       
-              $class = mysqli_num_rows($query1);
-              ?>
-              <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100">
-                  <div class="card-body">
-                    <div class="row align-items-center">
-                      <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1">Classes</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $class;?></div>
-                      </div>
-                      <div class="col-auto">
-                        <i class="fas fa-chalkboard fa-2x text-primary"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Class Arm Card -->
-
-              <!-- Teachers Card  -->
-              <?php 
-              $query1=mysqli_query($conn,"SELECT * from teachers");                       
-              $classTeacher = mysqli_num_rows($query1);
-              ?>
-              <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1">Class Teachers</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $classTeacher;?></div>
-                      </div>
-                      <div class="col-auto">
-                        <i class="fas fa-chalkboard-teacher fa-2x text-danger"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Students Card -->
-              <?php 
-              $query1=mysqli_query($conn,"SELECT * from students");                       
-              $students = mysqli_num_rows($query1);
-              ?>
-              <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1">Students</div>
-                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $students;?></div>
-                      </div>
-                      <div class="col-auto">
-                        <i class="fas fa-users fa-2x text-info"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Volunteers Card  -->
-              <?php 
-              $query1=mysqli_query($conn,"SELECT * from volunteers");                       
-              $termonly = mysqli_num_rows($query1);
-              ?>
-              <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1">Volunteers</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $termonly;?></div>
-                      </div>
-                      <div class="col-auto">
-                        <i class="fas fa-hands-helping fa-2x text-info"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Row -->
-
-            <!-- Std Att Card  -->
+          <div class="row mb-3">
+            <!-- Class Card -->
             <?php 
-            $query1=mysqli_query($conn,"SELECT * from tblattendance where status = 1");                       
-            $totAttendance = mysqli_num_rows($query1);
+            $query1=mysqli_query($conn,"SELECT * from classes");                       
+            $class = mysqli_num_rows($query1);
             ?>
-            <div class="row mb-3">
-              <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1">Total Student Attendance</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totAttendance;?></div>
-                      </div>
-                      <div class="col-auto">
-                        <i class="fas fa-calendar fa-2x text-warning"></i>
-                      </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-uppercase mb-1">Classes</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $class;?></div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-chalkboard fa-2x text-primary"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Class Arm Card -->
+
+            <!-- Teachers Card  -->
+            <?php 
+            $query1=mysqli_query($conn,"SELECT * from teachers");                       
+            $classTeacher = mysqli_num_rows($query1);
+            ?>
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-uppercase mb-1">Class Teachers</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $classTeacher;?></div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-chalkboard-teacher fa-2x text-danger"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Students Card -->
+            <?php 
+            $query1=mysqli_query($conn,"SELECT * from students");                       
+            $students = mysqli_num_rows($query1);
+            ?>
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-uppercase mb-1">Students</div>
+                      <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $students;?></div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-users fa-2x text-info"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Volunteers Card  -->
+            <?php 
+            $query1=mysqli_query($conn,"SELECT * from volunteers");                       
+            $termonly = mysqli_num_rows($query1);
+            ?>
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-uppercase mb-1">Volunteers</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $termonly;?></div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-hands-helping fa-2x text-info"></i>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <!---Container Fluid-->
+          <!-- Row -->
+
+          <!-- Std Att Card  -->
+          <?php 
+          $query1=mysqli_query($conn,"SELECT * from tblattendance where status = 1");                       
+          $totAttendance = mysqli_num_rows($query1);
+          ?>
+          <div class="row mb-3">
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-uppercase mb-1">Total Student Attendance</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totAttendance;?></div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-calendar fa-2x text-warning"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        <!---Container Fluid-->
       </div>
-      <!-- Content Wrapper -->
     </div>
+    <!-- Content Wrapper -->
   </div>
 
   <!-- Footer -->
@@ -168,4 +165,10 @@
 
   <script src="../vendor/jquery/jquery.min.js"></script>
   <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script
+  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="js/ruang-admin.min.js"></script>
+  <script src="../vendor/chart.js/Chart.min.js"></script>
+  <script src="js/demo/chart-area-demo.js"></script>  
+</body>
+
+</html>
