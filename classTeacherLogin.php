@@ -56,43 +56,41 @@ session_start();
                                     </form>
 
                                     <?php
+                                    // Attempting to use prepared statement
+                                    if(isset($_POST['login'])){
+                                        $username = $_POST['username'];
+                                        $password = $_POST['password'];
 
-  if(isset($_POST['login'])){
+                                        $query = "SELECT * FROM teachers WHERE teacher_email = ? AND teacher_password = ?";
+                                        $stmt = $conn->prepare($query);
 
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+                                        $stmt->bind_param("ss", $username, $password);
 
-    // $password = md5($password);
+                                        $stmt->execute();
 
-    $query = "SELECT * FROM teachers WHERE teacher_email = '$username' AND teacher_password = '$password'";
-    $rs = $conn->query($query);
-    $num = $rs->num_rows;
-    $rows = $rs->fetch_assoc();
+                                        $result = $stmt->get_result();
 
-    if($num > 0){
+                                        if ($result->num_rows > 0) {
+                                            // Fetch data
+                                            $rows = $result->fetch_assoc();
 
-      $_SESSION['teacher_id'] = $rows['teacher_id'];
-      $_SESSION['teacher_name'] = $rows['teacher_name'];
-      
-      $_SESSION['teacher_email'] = $rows['teacher_email'];
-      $_SESSION['teacher_number'] = $rows['teacher_number'];
-      $_SESSION['classId'] = $rows['classId'];
-      
+                                            $_SESSION['teacher_id'] = $rows['teacher_id'];
+                                            $_SESSION['teacher_name'] = $rows['teacher_name'];
+                                            $_SESSION['teacher_email'] = $rows['teacher_email'];
+                                            $_SESSION['teacher_number'] = $rows['teacher_number'];
+                                            $_SESSION['classId'] = $rows['classId'];
 
-      echo "<script type = \"text/javascript\">
-      window.location = (\"ClassTeacher/index.php\")
-      </script>";
-    }
+                                            echo "<script>window.location.href='ClassTeacher/index.php';</script>";
+                                            exit();
+                                        } else {
+                                            echo "<div class='alert alert-danger' role='alert'>
+                                                  Invalid Username/Password!
+                                                  </div>";
+                                        }
 
-    else{
-
-      echo "<div class='alert alert-danger' role='alert'>
-      Invalid Username/Password!
-      </div>";
-
-    }
-  }
-?>
+                                        $stmt->close();
+                                    }
+                                    ?>
 
                                     <!-- <hr>
                     <a href="index.html" class="btn btn-google btn-block">
