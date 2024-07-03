@@ -1,10 +1,8 @@
 <?php 
 ob_start();
 session_start();
-// include 'Includes/session.php';
 include 'Includes/dbcon.php';
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -103,7 +101,7 @@ include 'Includes/dbcon.php';
                                     <br><br>
                                     <h1 class="h4 text-gray-900 mb-4">Login Panel</h1>
                                 </div>
-                                <form class="user" method="Post" action="">
+                                <form class="user" method="post" action="">
                                     <div class="form-group">
                                         <select required name="userType" class="form-control mb-3">
                                             <option value="">--Select User Role--</option>
@@ -128,49 +126,53 @@ include 'Includes/dbcon.php';
                                 </form>
 
                                 <?php
-if(isset($_POST['login'])){
-   $userType = $_POST['userType'];
-   $username = $_POST['username'];
-   $password = $_POST['password'];
-   // $password = md5($password);
-   if($userType == "Administrator"){
-     $query = "SELECT * FROM tbladmin WHERE emailAddress = '$username' AND password = '$password'";
-     $rs = $conn->query($query);
-     $num = $rs->num_rows;
-     $rows = $rs->fetch_assoc();
-     if($num > 0){
-       $_SESSION['userId'] = $rows['Id'];
-       $_SESSION['firstName'] = $rows['firstName'];
-       $_SESSION['lastName'] = $rows['lastName'];
-       $_SESSION['emailAddress'] = $rows['emailAddress'];
-       echo "<script type = \"text/javascript\">window.location = (\"Admin/index.php\")</script>";
-     }
-     else{
-       echo "<div class='alert alert-danger' role='alert'>Invalid Username/Password!</div>";
-     }
-   }
-   else if($userType == "ClassTeacher"){
-     $query = "SELECT * FROM teachers WHERE teacher_email = '$username' AND teacher_password = '$password'";
-     $rs = $conn->query($query);
-     $num = $rs->num_rows;
-     $rows = $rs->fetch_assoc();
-     if($num > 0){
-       $_SESSION['userId'] = $rows['teacher_id'];
-       $_SESSION['firstName'] = $rows['teacher_name'];
-       $_SESSION['emailAddress'] = $rows['teacher_email'];
-       $_SESSION['teacher_number'] = $rows['teacher_number'];
-       $_SESSION['classId'] = $rows['classId'];
-       echo "<script type = \"text/javascript\">window.location = (\"ClassTeacher/index.php\")</script>";
-     }
-     else{
-       echo "<div class='alert alert-danger' role='alert'>Invalid Username/Password!</div>";
-     }
-   }
-   else{
-       echo "<div class='alert alert-danger' role='alert'>Invalid Username/Password!</div>";
-   }
-}
-?>
+                                if(isset($_POST['login'])){
+                                    $userType = $_POST['userType'];
+                                    $username = $_POST['username'];
+                                    $password = $_POST['password'];
+                                    
+                                    // Using prepared statement instead
+                                    if($userType == "Administrator"){
+                                        $query = "SELECT * FROM tbladmin WHERE emailAddress = ? AND password = ?";
+                                    } elseif($userType == "ClassTeacher"){
+                                        $query = "SELECT * FROM teachers WHERE teacher_email = ? AND teacher_password = ?";
+                                    } else {
+                                        echo "<div class='alert alert-danger' role='alert'>Invalid User Role!</div>";
+                                        exit;
+                                    }
+
+                                    $stmt = $conn->prepare($query);
+                                    $stmt->bind_param("ss", $username, $password);
+
+                                    $stmt->execute();
+
+                                    $result = $stmt->get_result();
+
+                                    if ($result->num_rows > 0) {
+                                        $rows = $result->fetch_assoc();
+
+                                        if($userType == "Administrator"){
+                                            $_SESSION['userId'] = $rows['Id'];
+                                            $_SESSION['firstName'] = $rows['firstName'];
+                                            $_SESSION['lastName'] = $rows['lastName'];
+                                            $_SESSION['emailAddress'] = $rows['emailAddress'];
+                                            echo "<script>window.location.href='Admin/index.php';</script>";
+                                        } elseif($userType == "ClassTeacher"){
+                                            $_SESSION['userId'] = $rows['teacher_id'];
+                                            $_SESSION['firstName'] = $rows['teacher_name'];
+                                            $_SESSION['emailAddress'] = $rows['teacher_email'];
+                                            $_SESSION['teacher_number'] = $rows['teacher_number'];
+                                            $_SESSION['classId'] = $rows['classId'];
+                                            echo "<script>window.location.href='ClassTeacher/index.php';</script>";
+                                        }
+                                        exit();
+                                    } else {
+                                        echo "<div class='alert alert-danger' role='alert'>Invalid Username/Password!</div>";
+                                    }
+
+                                    $stmt->close();
+                                }
+                                ?>
                                 <div class="text-center">
                                     <!-- Add social login buttons if required -->
                                 </div>
